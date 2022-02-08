@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>用户注册</title>
+    <base href="http://localhost:8080/">
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="css/a3common.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font_43459_lbtux0zjkr6yldi.css">
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <script type="application/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="main" class="main-warp">
+    <div class="main-content">
+        <div class="formDiv">
+            <h2 class="title text-center">注册</h2>
+            <form id="registerForm" role="form" class="form-horizontal " action="" method="post">
+                <div class="form-item">
+                    <div class="input-warp">
+                        <span class="input-icon iconfont icon-yonghu1"></span>
+                        <input id="username" name="username" placeholder="请输入用户名" type="text" class="inputs"/>
+                    </div>
+                    <p id="userNameMsg"></p>
+                </div>
+                <div class="form-item">
+                    <div class="input-warp">
+                        <span class="input-icon iconfont icon-baomi"></span>
+                        <input id="pwd" type="password" placeholder="至少6位字母或数字" maxlength="20" name="password" value=""
+                               class="inputs"/>
+                    </div>
+                    <p id="passwordErr" class="errMsg"></p>
+                </div>
+                <div class="form-item">
+                    <div class="input-warp">
+                        <span class="input-icon iconfont icon-baomi"></span>
+                        <input id="repwd" type="password" placeholder="至少6位字母或数字" maxlength="20" name="password2"
+                               value=""
+                               class="inputs"/>
+                    </div>
+                    <p id="passwordErr2" class="errMsg"></p>
+                </div>
+
+                <div class="btn-warp">
+                    <div class="text-center">
+                        <button type="button" id="btnSubmit" class="btn lgbtn blue btn-block">注册</button>
+                        <input id="appName" name="appName" type="hidden" value="jsform"/>
+                    </div>
+                </div>
+                <div class="agreement gap">
+                    <div class="text-right">
+                        <div class="pull-left">已有账号，<a href="../../login.html" class="link">登录</a></div>
+                        <p>注册即代表您已阅读并同意《<a href="javascript:;" target="_blank" class="link">使用协议</a>》</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $("#username").blur(function () {
+        $.getJSON("user/checkName3", {"username": $(this).val()}, function (data) {
+            let {msg, color} = data;
+            $("#userNameMsg").text(msg).css("color",color);
+        });
+    });
+
+    /*$("#username").blur(function () {
+        let username = $(this).val();
+        $.post("user/checkName2", {"username": username}, function (data) {
+            console.log(data);
+            let {msg, color} = data;
+            let $userNameMsg = $("#userNameMsg");
+            $userNameMsg.text(msg).css("color",color);
+        }, "json");
+    });*/
+    /*$("#username").blur(function () {
+        let username = $(this).val();
+        $.post("user/checkName1", "username=" + username, function (data) {
+            console.log(data);
+        }, "text");
+    });*/
+
+    /*$("#username").blur(function () {
+        //使用jquery的ajax
+        let username = $(this).val();
+        $.ajax({
+            url: 'user/checkName1',
+            type: 'post',
+            //data: 'username=' + username,
+            data: {"username": username},//传的参数数据
+            dataType: 'text',//服务器返回数据的格式
+            success: response => {
+                console.log(response);
+            },
+        });
+    });*/
+
+
+    function checkUsername(usernameInput) {
+        //使用的是js的原生的ajax
+        let username = usernameInput.value;
+        //校验用户名是否可用  是否唯一
+        let xmlHttpRequest;
+        if (window.XMLHttpRequest) {
+            xmlHttpRequest = new XMLHttpRequest();
+        } else {
+            xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        //回调函数
+        xmlHttpRequest.onreadystatechange = function () {
+            if (xmlHttpRequest.status == 200 && xmlHttpRequest.readyState == 4) {
+                document.getElementById("userNameMsg").innerText = xmlHttpRequest.responseText;
+            }
+        }
+        //请求服务器
+        xmlHttpRequest.open("post", "user/checkName1", true);
+        xmlHttpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttpRequest.send("username=" + username);
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="commons-dbutils-1.7">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/commons-dbutils-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/druid-1.2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/lombok.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/mysql-connector-java-5.1.47.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/lib/jstl-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

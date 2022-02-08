@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<base href="http://localhost:8080/">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/a3common.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/my-login.css">
+	<script type="application/javascript" src="js/jquery-3.6.0.min.js"></script>
+	<script type="application/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand">
+						<img src="img/logo.jpg">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">登录</h4>
+							<form method="POST" id="loginform">
+							 
+								<div class="form-group">
+									<label for="email">邮箱</label>
+
+									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+								</div>
+
+								<div class="form-group">
+									<label for="password">密码
+									</label>
+									<input id="password" type="password" class="form-control" name="password" required data-eye>
+								</div>
+
+								<div class="form-group">
+									<label>
+										<input type="checkbox" name="remember"> 记住我
+									</label>
+								</div>
+
+								<div class="form-group no-margin">
+									<button id="login" type="submit" class="btn btn-primary btn-block">
+										登录
+									</button>
+								</div>
+								<div class="margin-top20 text-center">
+									还没有账号？<a href="register.html">创建一个</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; GAVIN -2021
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/my-login.js"></script>
+
+	<script>
+		//登录操作  通过后端返回的Code判断是否登录成功了
+		$("#login").click(function (){
+			$.post("user/login",$("#loginform").serialize(),function (response) {
+				let {code,msg}=response;
+				if (code==1000){
+					window.location.replace("page/index.html");
+				}else {
+					alert(msg);
+				}
+			},"json")
+		})
+	</script>
+</body>
+</html>
